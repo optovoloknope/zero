@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+
+</head>
+<body>
+    <div id="container">
+        <div v-for="item in items">
+            <input
+                    type="number"
+                    v-model="item.enteredAmount"
+                    placeholder="Enter Amount"
+                    v-bind:max="item.amount"
+                    v-on:keyup="checkMinMax(item)"
+            />
+            <span>
+                ti super
+            </span>
+        </div>
+        <div>
+            {{ sum() }}
+        </div>
+    </div>
+    <script>
+        var vue = new Vue({
+            el: "#container",
+            data: {
+                items: [
+                    {
+                        amount: 500,
+                        enteredAmount: 500
+                    },
+                    {
+                        amount: 500,
+                        enteredAmount: 500
+                    },
+                    {
+                        amount: 500,
+                        enteredAmount: 500
+                    }
+                ]
+            },
+            methods: {
+                sum: function() {
+                    var sum = 0;
+                    this.items.forEach(function(item) {
+                        sum += Number(item.enteredAmount);
+                    });
+                    return Number(sum);
+                },
+                checkMinMax: function (item) {
+                    if(item.enteredAmount > item.amount) {
+                        item.enteredAmount = item.amount;
+                    }
+                    if(item.enteredAmount < 0) {
+                        item.enteredAmount = 0;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
